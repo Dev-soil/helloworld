@@ -4,12 +4,12 @@ import Card from "../UI/Card";
 import MealsItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
-export interface DummyMeal {
+export type DummyMeal = {
   id: string;
   name: string;
   description: string;
   price: number;
-}
+};
 
 const DUMMY_MEALS: DummyMeal[] = [
   {
