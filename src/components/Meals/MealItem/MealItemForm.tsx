@@ -1,9 +1,15 @@
+import React from "react";
+
 import Input from "../../UI/Input";
 import classes from "./MealItemForm.module.css";
 
 const MealItemForm = ({ id }: { id: string }) => {
+  const mealSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={mealSubmitHandler}>
       <Input
         label="Amount"
         input={{
