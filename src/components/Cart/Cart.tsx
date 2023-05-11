@@ -34,13 +34,13 @@ const Cart = ({ onCartClose }: Props) => {
     <Modal onCartClose={onCartClose}>
       <Card>
         <ul className={classes["cart-items"]}>
-          {cartCtx.items.map((item) => (
+          {cartCtx.items.map((item: CartItems) => (
             <CartItem
               key={item.id}
               name={item.name}
               price={item.price}
               amount={item.amount}
-              onAdd={addQuantityHandler.bind(null, item)}
+              onAdd={addQuantityHandler.bind(null, { ...item, amount: 1 })}
               onRemove={removeQuantityHandler.bind(null, item.id)}
             />
           ))}

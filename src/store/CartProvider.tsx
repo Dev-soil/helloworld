@@ -42,7 +42,6 @@ const cartReducer = (state: DefaultCartType, action: Action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
-      console.log(action.id);
       // 새로운 상품이라면 새로 추가
       updatedItems = state.items.concat(action.item);
     }
@@ -53,10 +52,21 @@ const cartReducer = (state: DefaultCartType, action: Action) => {
   if (action.type === "REMOVE_ITEM" && action.id) {
     // const updatedItems = state.items.filter((item) => item.id !== action.id);
     const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.item?.id
+      (item) => item.id === action.id
     );
     const existingItem = state.items[existingCartItemIndex];
     const updatedTotalAmount = state.totalAmount - existingItem.price;
+    let updatedItems: CartItems[];
+
+    if (existingItem.amount === 1) {
+      updatedItems = state.items.filter((item) => item.id !== action.id);
+    } else {
+      const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    }
+
+    return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
 
   return defaultCartState;
